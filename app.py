@@ -54,15 +54,22 @@ def login():
 
 @app.route('/login', methods=['POST'])
 def do_login():
-    username = request.form['username']
-    password_input = request.form['password']
-    
+    username = request.form.get('username', '').strip()
+    password_input = request.form.get('password', '')
+
     # Username validation
+    if not username:
+        flash('ユーザー名を入力してください。', 'error')
+        return redirect(url_for('login'))
     if len(username) > 20:
         flash('ユーザー名は20文字以内で入力してください。', 'error')
         return redirect(url_for('login'))
-    
+
     # Password validation
+    if not password_input:
+        flash('パスワードを入力してください。', 'error')
+        return redirect(url_for('login'))
+
     current_password, _ = load_password()
     if password_input != current_password:
         flash('ユーザー名またはパスワードが間違っています。', 'error')
