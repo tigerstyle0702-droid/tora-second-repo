@@ -1,0 +1,2 @@
+recursive-include login_package *.html
+recursive-include login_package/static *
