@@ -56,17 +56,27 @@
             let isValid = true;
 
             // Username validation
-            if (username.value.length > 20) {
+            if (!username.value.trim()) {
                 username.classList.add('is-invalid');
+                username.nextElementSibling.textContent = 'ユーザー名を入力してください。';
+                isValid = false;
+            } else if (username.value.length > 20) {
+                username.classList.add('is-invalid');
+                username.nextElementSibling.textContent = 'ユーザー名は20文字以内で入力してください。';
                 isValid = false;
             } else {
                 username.classList.remove('is-invalid');
             }
 
             // Password validation
-            const passwordRegex = /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};\':"\\|,.<>\/?]*$/;
-            if (password.value.length < 8 || !passwordRegex.test(password.value)) {
+            const passwordRegex = /^[a-zA-Z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?]*$/;
+            if (!password.value) {
                 password.classList.add('is-invalid');
+                password.nextElementSibling.textContent = 'パスワードを入力してください。';
+                isValid = false;
+            } else if (password.value.length < 8 || !passwordRegex.test(password.value)) {
+                password.classList.add('is-invalid');
+                password.nextElementSibling.textContent = 'パスワードは半角英数と記号のみで8文字以上である必要があります。';
                 isValid = false;
             } else {
                 password.classList.remove('is-invalid');
